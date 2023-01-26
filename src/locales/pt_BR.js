@@ -1,3 +1,6 @@
 export default {
-  name: 'Nome',
+  address: 'Endereço',
+  street: 'Rua',
+  neighborhood: 'Bairro',
+  city: 'Cidade'
 }

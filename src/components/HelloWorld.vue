@@ -1,11 +1,21 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import CepService from '@/services/public/CepService.js'
 
 defineProps({
   msg: String,
 })
 
 const count = ref(0)
+
+const address = ref({})
+
+onMounted(() => {
+  CepService.getCep('70150-900').then((response) => {
+    address.value = response
+  })
+})
+
 </script>
 
 <template>
@@ -31,10 +41,32 @@ const count = ref(0)
     in your IDE for a better DX
   </p>
   <p class="read-the-docs">Click on the Vite and Vue logos to learn more</p>
+  
+  <v-card
+    class="mx-auto text-justify mt-5"
+    width="400"
+    prepend-icon="fas fa-home"
+  >
+    <template v-slot:title>
+      {{$t('address')}}
+    </template>
+
+
+    <v-card-text>
+      <p class="pb-4">Nesse card deve mostrar uma requisição feita para o ViaCep com objetivo de testar o Axios</p>
+      <p>{{`${$t('street')}: ${address.logradouro}`}}</p>
+      <p>{{`${$t('neighborhood')}: ${address.bairro}`}}</p>
+      <p>{{`${$t('city')}: ${address.localidade}`}}</p>
+    </v-card-text>
+  </v-card>
 </template>
 
 <style scoped>
 .read-the-docs {
   color: #888;
+}
+
+.card {
+  padding: 2em;
 }
 </style>

@@ -2,7 +2,8 @@
   <h1>{{ msg }}</h1>
 
   <div class="card">
-    <button type="button" @click="count++">count is {{ count }}</button>
+    <button type="button" @click="increment">count is {{ count }}</button>
+    <div>Double count is {{ doubleCount }}</div>
     <p>
       Edit
       <code>components/HelloWorld.vue</code> to test HMR
@@ -52,34 +53,37 @@
 </template>
 
 <script setup>
+  import { ref, onMounted, } from 'vue'
+  import CepService from '@/services/public/CepService.js'
+  import { countStore } from '@/store/count.js'
+  import Swal from '@/plugins/sweetalert'
+  import { storeToRefs } from 'pinia'
 
-import { ref, onMounted } from 'vue'
-import CepService from '@/services/public/CepService.js'
-
-import Swal from '@/plugins/sweetalert'
-defineProps({
-  msg: String,
-})
-
-const count = ref(0)
-
-
-const address = ref({})
-onMounted(() => {
-  CepService.getCep('70150-900').then((response) => {
-    address.value = response
+  defineProps({
+    msg: String,
   })
 
-  Swal.alertSuccess({title: 'Toast sucesso, testando sweet alert2'})
-})
+  const store = countStore()
+  const { count, doubleCount } = storeToRefs(store)
 
+  const increment = store.increment;
 
-const cep = ref('')
-function getAddress(){
-  CepService.getCep(cep.value).then((response) => {
-    address.value = response
+  const address = ref({})
+  onMounted(() => {
+    CepService.getCep('70150-900').then((response) => {
+      address.value = response
+    })
+
+    Swal.alertSuccess({title: 'Toast sucesso, testando sweet alert2'})
   })
-}
+
+
+  const cep = ref('')
+  function getAddress(){
+    CepService.getCep(cep.value).then((response) => {
+      address.value = response
+    })
+  }
 
 </script>
 

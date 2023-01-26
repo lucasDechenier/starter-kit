@@ -1,23 +1,3 @@
-<script setup>
-import { ref, onMounted } from 'vue'
-import CepService from '@/services/public/CepService.js'
-
-defineProps({
-  msg: String,
-})
-
-const count = ref(0)
-
-const address = ref({})
-
-onMounted(() => {
-  CepService.getCep('70150-900').then((response) => {
-    address.value = response
-  })
-})
-
-</script>
-
 <template>
   <h1>{{ msg }}</h1>
 
@@ -41,7 +21,7 @@ onMounted(() => {
     in your IDE for a better DX
   </p>
   <p class="read-the-docs">Click on the Vite and Vue logos to learn more</p>
-  
+
   <v-card
     class="mx-auto text-justify mt-5"
     width="400"
@@ -59,7 +39,49 @@ onMounted(() => {
       <p>{{`${$t('city')}: ${address.localidade}`}}</p>
     </v-card-text>
   </v-card>
+
+  <v-text-field v-model="cep" 
+  label="Cep"
+  placeholder="Digite seu cep" 
+  class="mt-4">
+  </v-text-field>
+
+  <v-btn @click="getAddress">
+    Buscar endereço
+  </v-btn>
 </template>
+
+<script setup>
+
+import { ref, onMounted } from 'vue'
+import CepService from '@/services/public/CepService.js'
+
+import Swal from '@/plugins/sweetalert'
+defineProps({
+  msg: String,
+})
+
+const count = ref(0)
+
+
+const address = ref({})
+onMounted(() => {
+  CepService.getCep('70150-900').then((response) => {
+    address.value = response
+  })
+
+  Swal.alertSuccess({title: 'Toast sucesso, testando sweet alert2'})
+})
+
+
+const cep = ref('')
+function getAddress(){
+  CepService.getCep(cep.value).then((response) => {
+    address.value = response
+  })
+}
+
+</script>
 
 <style scoped>
 .read-the-docs {

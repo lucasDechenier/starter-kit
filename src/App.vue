@@ -2,5 +2,9 @@
 </script>
 
 <template>
-  <router-view></router-view>
+  <v-app>
+    <v-main>
+      <router-view />
+    </v-main>
+  </v-app>
 </template>

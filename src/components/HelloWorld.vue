@@ -2,7 +2,10 @@
   <h1>{{ msg }}</h1>
 
   <div class="card">
-    <button type="button" @click="increment">
+    <button
+      type="button"
+      @click="increment"
+      class="border-2 px-2 rounded hover:border-blue-600 border-solid">
       count is {{ count }}
     </button>
     <div>Double count is {{ doubleCount }}</div>

@@ -2,7 +2,9 @@
   <h1>{{ msg }}</h1>
 
   <div class="card">
-    <button type="button" @click="increment">count is {{ count }}</button>
+    <button type="button" @click="increment">
+      count is {{ count }}
+    </button>
     <div>Double count is {{ doubleCount }}</div>
     <p>
       Edit
@@ -12,8 +14,10 @@
 
   <p>
     Check out
-    <a href="https://vuejs.org/guide/quick-start.html#local" target="_blank"
-      >create-vue</a
+    <a
+      href="https://vuejs.org/guide/quick-start.html#local"
+      target="_blank"
+    >create-vue</a
     >, the official Vue + Vite starter
   </p>
   <p>
@@ -21,31 +25,35 @@
     <a href="https://github.com/johnsoncodehk/volar" target="_blank">Volar</a>
     in your IDE for a better DX
   </p>
-  <p class="read-the-docs">Click on the Vite and Vue logos to learn more</p>
+  <p class="read-the-docs">
+    Click on the Vite and Vue logos to learn more
+  </p>
 
   <v-card
     class="mx-auto text-justify mt-5"
     width="400"
     prepend-icon="fas fa-home"
   >
-    <template v-slot:title>
-      {{$t('address')}}
+    <template #title>
+      {{ $t('address') }}
     </template>
 
 
     <v-card-text>
-      <p class="pb-4">Nesse card deve mostrar uma requisição feita para o ViaCep com objetivo de testar o Axios</p>
-      <p>{{`${$t('street')}: ${address.logradouro}`}}</p>
-      <p>{{`${$t('neighborhood')}: ${address.bairro}`}}</p>
-      <p>{{`${$t('city')}: ${address.localidade}`}}</p>
+      <p class="pb-4">
+        Nesse card deve mostrar uma requisição feita para o ViaCep com objetivo de testar o Axios
+      </p>
+      <p>{{ `${$t('street')}: ${address.logradouro}` }}</p>
+      <p>{{ `${$t('neighborhood')}: ${address.bairro}` }}</p>
+      <p>{{ `${$t('city')}: ${address.localidade}` }}</p>
     </v-card-text>
   </v-card>
 
-  <v-text-field v-model="cep" 
-  label="Cep"
-  placeholder="Digite seu cep" 
-  class="mt-4">
-  </v-text-field>
+  <v-text-field
+    v-model="cep" 
+    label="Cep"
+    placeholder="Digite seu cep" 
+    class="mt-4" />
 
   <v-btn @click="getAddress">
     Buscar endereço
@@ -60,7 +68,7 @@
   import { storeToRefs } from 'pinia'
 
   defineProps({
-    msg: String,
+    msg: { type: String, default: '' },
   })
 
   const store = countStore()
